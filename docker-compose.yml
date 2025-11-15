@@ -17,3 +17,5 @@ services:
     build:
       dockerfile: ./docker/sbcl-dockerfile
       context: .
+    ports:
+      - "5900:5900"

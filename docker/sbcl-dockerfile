@@ -11,7 +11,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN    DEBIAN_FRONTEND=noninteractive \
        apt-get update \
-    && apt-get install -y wget postgresql-client git sbcl rlwrap
+    && apt-get install -y wget postgresql-client git sbcl rlwrap python3 python3-pip
 
 
 # quicklisp
@@ -21,6 +21,10 @@ RUN sbcl --load quicklisp.lisp --non-interactive \
          --eval "(quicklisp-quickstart:install)" \
          --eval "(ql-util:without-prompting (ql:add-to-init-file))" \
          --eval "(sb-ext:quit)"
+
+# Install Flask early to cache in separate layer
+RUN pip3 install --default-timeout=100 --no-cache-dir flask --break-system-packages || \
+    pip3 install --default-timeout=100 --no-cache-dir flask --break-system-packages
 
 # ichiran
 WORKDIR /root
