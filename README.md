@@ -138,7 +138,7 @@ ichiran wa saikō da zo
 
 ### Flask API Wrapper
 
-The Docker container includes a Flask API wrapper that exposes Ichiran functionality via HTTP REST API on port 5900 at `/i-api/v1`.
+The Docker container includes a Flask API wrapper that exposes Ichiran functionality via HTTP REST API on port 5900 at `/i-api/v1/ichiran`.
 
 **Starting the API:**
 
@@ -150,8 +150,8 @@ docker compose up
 
 **API Endpoints:**
 
-- **Health Check:** `GET /i-api/v1/health`
-- **Analyze Text:** `GET /i-api/v1?text=<japanese_text>&format=<format>` or `POST /i-api/v1` with JSON body
+- **Health Check:** `GET /i-api/v1/ichiran/health`
+- **Analyze Text:** `GET /i-api/v1/ichiran?text=<japanese_text>&format=<format>` or `POST /i-api/v1/ichiran` with JSON body
 
 **Format Options:**
 
@@ -162,23 +162,23 @@ docker compose up
 
 ```bash
 # Health check
-curl http://localhost:5900/i-api/v1/health
+curl http://localhost:5900/i-api/v1/ichiran/health
 
 # Analyze text (GET request, simple format)
-curl "http://localhost:5900/i-api/v1?text=一覧は最高だぞ"
+curl "http://localhost:5900/i-api/v1/ichiran?text=一覧は最高だぞ"
 
 # Analyze text (POST request, simple format)
-curl -X POST http://localhost:5900/i-api/v1 \
+curl -X POST http://localhost:5900/i-api/v1/ichiran \
   -H "Content-Type: application/json" \
   -d '{"text": "一覧は最高だぞ"}'
 
 # Get structured JSON output (full format)
-curl -X POST http://localhost:5900/i-api/v1 \
+curl -X POST http://localhost:5900/i-api/v1/ichiran \
   -H "Content-Type: application/json" \
   -d '{"text": "一覧は最高だぞ", "format": "full"}'
 
 # Full format via GET
-curl "http://localhost:5900/i-api/v1?text=一覧は最高だぞ&format=full"
+curl "http://localhost:5900/i-api/v1/ichiran?text=一覧は最高だぞ&format=full"
 ```
 
 **Response Format:**

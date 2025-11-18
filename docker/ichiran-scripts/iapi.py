@@ -7,10 +7,12 @@ Exposes /i-api/v1 endpoint for Japanese text analysis.
 import subprocess
 import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes and origins
 
-@app.route('/i-api/v1', methods=['GET', 'POST'])
+@app.route('/i-api/v1/ichiran', methods=['GET', 'POST'])
 def analyze():
     """
     Analyze Japanese text using ichiran-cli.
@@ -106,7 +108,7 @@ def analyze():
         }), 500
 
 
-@app.route('/i-api/v1/health', methods=['GET'])
+@app.route('/i-api/v1/ichiran/health', methods=['GET'])
 def health():
     """Health check endpoint."""
     return jsonify({'status': 'ok', 'service': 'ichiran-api'}), 200

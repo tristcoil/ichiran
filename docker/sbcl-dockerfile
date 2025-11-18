@@ -22,9 +22,9 @@ RUN sbcl --load quicklisp.lisp --non-interactive \
          --eval "(ql-util:without-prompting (ql:add-to-init-file))" \
          --eval "(sb-ext:quit)"
 
-# Install Flask early to cache in separate layer
-RUN pip3 install --default-timeout=100 --no-cache-dir flask --break-system-packages || \
-    pip3 install --default-timeout=100 --no-cache-dir flask --break-system-packages
+# Install Flask and flask-cors early to cache in separate layer
+RUN pip3 install --default-timeout=100 --no-cache-dir flask flask-cors --break-system-packages || \
+    pip3 install --default-timeout=100 --no-cache-dir flask flask-cors --break-system-packages
 
 # ichiran
 WORKDIR /root
